@@ -6,15 +6,15 @@
 </head>
 <body>
   <h1>Backup BarberBot</h1>
-  <hr>
-
-<h2>📌 Estado Actual del Sistema</h2>
+  <h2>📌 Estado Actual del Sistema</h2>
 <ul>
-  <li>El BarberBot se encuentra en fase de estabilización avanzada del flujo.</li>
-  <li>La lógica de reinicio por etiquetas es ahora el núcleo del sistema.</li>
-  <li>Make queda completamente desacoplado durante todo el flujo inicial.</li>
+  <li>El BarberBot se encuentra en fase de estabilización avanzada del flujo conversacional.</li>
+  <li>La lógica de reinicio por etiquetas es ahora el núcleo operativo del sistema.</li>
+  <li>Todos los caminos de error conducen a reinicio completo.</li>
+  <li>Make se encuentra completamente desacoplado durante el flujo inicial para evitar contaminación de estado.</li>
   <li>El sistema prioriza estabilidad, continuidad de UX y tolerancia al error humano.</li>
-  <li>Este archivo <code>index.html</code> es la única fuente oficial de verdad del sistema.</li>
+  <li>La fuente única de verdad del sistema es el archivo <code>index.html</code>.</li>
+  <li>Los historiales funcionan como memoria forense externa.</li>
 </ul>
 
 <hr>
@@ -23,23 +23,25 @@
 <ul>
   <li>El sistema opera exclusivamente mediante:
     <ul>
-      <li>Disparadores</li>
-      <li>Etiquetas</li>
-      <li>Plantillas</li>
+      <li>Disparadores (eventos de entrada)</li>
+      <li>Etiquetas (control de estado)</li>
+      <li>Plantillas (salida controlada)</li>
     </ul>
   </li>
-  <li>SellerChat no se utiliza para almacenar estado ni variables persistentes.</li>
-  <li>No se confía en la persistencia de contexto entre mensajes.</li>
-  <li>Todo el control de flujo depende únicamente de etiquetas.</li>
-  <li>No existen validaciones cruzadas entre datos.</li>
-  <li>Make solo se ejecuta después de la confirmación final.</li>
+  <li>SellerChat NO se utiliza para almacenar estado ni variables persistentes.</li>
+  <li>No se confía en la persistencia de contexto entre mensajes del usuario.</li>
+  <li>Todo el control de flujo depende únicamente del sistema de etiquetas.</li>
+  <li>El sistema está diseñado para ser <strong>stateless</strong> entre interacciones.</li>
+  <li>Make solo se ejecuta después de la confirmación final correcta.</li>
+  <li>El calendario no puede ser modificado por el bot sin confirmación explícita final.</li>
 </ul>
 
 <hr>
 
 <h2>🔐 Reglas de Oro del Sistema</h2>
 <ul>
-  <li>El cliente no debe razonar, solo avanzar.</li>
+  <li>El usuario nunca debe razonar sobre el sistema.</li>
+  <li>El sistema debe guiar siempre con preguntas cerradas.</li>
   <li>Ante cualquier respuesta “NO” se ejecuta RESET TOTAL.</li>
   <li>No existen correcciones parciales de datos.</li>
   <li>Solo existen dos resets oficiales:
@@ -56,6 +58,7 @@
       <li>Ejecuta directamente <code>plantilla1_reservar</code>.</li>
     </ul>
   </li>
+  <li>El sistema nunca intenta “arreglar” datos: solo reinicia.</li>
 </ul>
 
 <hr>
@@ -78,9 +81,10 @@
   <li>Si responde:
     <ul>
       <li><strong>NO</strong> → <code>resetFINAL</code> → Regresa a <code>plantilla1_reservar</code>.</li>
-      <li><strong>SÍ</strong> → Se envían datos a Make y se agenda la cita.</li>
+      <li><strong>SÍ</strong> → Se envían datos a Make y se agenda la cita en Google Calendar.</li>
     </ul>
   </li>
+  <li>El bot confirma al cliente que la cita quedó registrada.</li>
 </ol>
 
 <hr>
@@ -88,7 +92,7 @@
 <h2>⚙️ Disparadores Activos</h2>
 <ul>
   <li><code>INICIO</code> — Reinicio maestro absoluto.</li>
-  <li><code>resetDATE</code> — Reinicio al negar fecha/hora.</li>
+  <li><code>resetDATE</code> — Reinicio al negar fecha y hora.</li>
   <li><code>resetFINAL</code> — Reinicio al negar confirmación final.</li>
 </ul>
 
@@ -96,7 +100,7 @@
 
 <h2>📄 Plantillas Oficiales</h2>
 <ul>
-  <li><code>plantilla1_reservar</code> — Punto único y obligatorio de entrada.</li>
+  <li><code>plantilla1_reservar</code> — Punto único obligatorio de entrada al sistema.</li>
 </ul>
 
 <hr>
@@ -105,19 +109,19 @@
 <ul>
   <li>No se permite recuperación parcial de errores.</li>
   <li>No se reutilizan datos si hubo una negativa.</li>
-  <li>Todo error se resuelve con RESET TOTAL.</li>
-  <li>No se permite continuar un flujo corrupto.</li>
+  <li>Todo error se resuelve exclusivamente con RESET TOTAL.</li>
+  <li>No se permite continuar un flujo corrupto bajo ningún caso.</li>
 </ul>
 
 <hr>
 
 <h2>🐞 Problemas Históricos Detectados</h2>
 <ul>
-  <li>El bot respondía incluso con Make apagado.</li>
-  <li>El historial de SellerChat afectaba severamente el flujo.</li>
-  <li>Los nombres se sobrescribían sin control.</li>
-  <li>Los cambios de servicio no siempre se reflejaban correctamente.</li>
-  <li>El borrado manual de historial alteraba el comportamiento.</li>
+  <li>El bot respondió incluso con Make apagado.</li>
+  <li>El historial de SellerChat afectó severamente el flujo.</li>
+  <li>Los nombres se sobrescribieron sin control adecuado.</li>
+  <li>Los cambios de servicio no se reflejaron de forma consistente.</li>
+  <li>El borrado manual de historial alteró el comportamiento.</li>
 </ul>
 
 <hr>
@@ -129,16 +133,17 @@
   <li>Se estableció un único punto de entrada.</li>
   <li>Se descartó completamente el uso de variables persistentes.</li>
   <li>Se decidió que cualquier “NO” reinicia todo el sistema.</li>
+  <li>Se prefirió confiabilidad sobre flexibilidad.</li>
 </ul>
 
 <hr>
 
 <h2>🎯 Filosofía UX del BarberBot</h2>
 <ul>
-  <li>El cliente nunca debe quedar en un estado de incertidumbre.</li>
+  <li>El cliente nunca debe quedar en incertidumbre.</li>
   <li>El bot siempre debe indicar claramente el siguiente paso.</li>
   <li>El cliente puede equivocarse sin romper el sistema.</li>
-  <li>La prioridad absoluta es que el cliente termine agendando.</li>
+  <li>La prioridad absoluta es siempre que el cliente termine agendando.</li>
   <li>El sistema debe guiar, no exigir razonamiento.</li>
 </ul>
 
@@ -157,8 +162,8 @@
 <h2>🛠 Pendientes Técnicos</h2>
 <ul>
   <li>Estabilizar completamente el reset automático por etiqueta.</li>
-  <li>Aislar totalmente Make del flujo inicial.</li>
-  <li>Documentar todos los disparadores existentes.</li>
+  <li>Aislar definitivamente Make del flujo inicial.</li>
+  <li>Documentar la totalidad de los disparadores existentes.</li>
   <li>Automatizar respaldos periódicos del index.</li>
 </ul>
 
@@ -169,7 +174,7 @@
   <li><strong>Capa UX:</strong> Conversación con el cliente.</li>
   <li><strong>Capa Lógica:</strong> Disparadores, etiquetas y resets.</li>
   <li><strong>Capa de Integración:</strong> Make y Google Calendar.</li>
-  <li><strong>Capa de Respaldo:</strong> GitHub Pages.</li>
+  <li><strong>Capa de Respaldo:</strong> GitHub Pages y archivos de historial.</li>
 </ul>
 
 <hr>
@@ -183,11 +188,185 @@
   <li>NO → <code>resetFINAL</code> → <code>plantilla1_reservar</code></li>
   <li>SÍ → Make → Google Calendar → Cita agendada</li>
 </ul>
+<h1>📜 Historial Técnico Completo</h1>
+<h2>Fecha: 2025-12-08</h2>
+<h2>Rango horario: 16:30 – AHORA</h2>
+<p><strong>Proyecto:</strong> BarberBot</p>
+<p><strong>Tipo de documento:</strong> Memoria técnica cruda continua (no oficial)</p>
 
 <hr>
 
-<h2>🌐 Enlace Maestro del Respaldo</h2>
-<code>https://maxhdez300-cell.github.io/202512/</code>
+<h2>⏰ 16:30 — Inicio real del análisis crítico</h2>
+<ul>
+  <li>Se detecta que el comportamiento errático del bot está directamente ligado al historial previo.</li>
+  <li>Se confirma que borrar historial de WhatsApp y SellerChat “libera” el flujo temporalmente.</li>
+  <li>Se identifica que SellerChat no maneja persistencia real de contexto.</li>
+  <li>Se concluye que depender del historial para producción es inviable.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 17:00 — Error crítico de datos persistentes</h2>
+<ul>
+  <li>Se prueba cambiar el nombre después del primero (ejemplo: nombre 1 → nombre 2).</li>
+  <li>El bot continúa usando el primer nombre.</li>
+  <li>Se confirma uso de datos obsoletos en decisiones activas.</li>
+  <li>Se determina que la corrección parcial de datos NO es confiable.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 17:15 — Debate UX vs lógica rígida</h2>
+<ul>
+  <li>Se analiza que permitir correcciones parciales genera estados corruptos.</li>
+  <li>Se concluye que es preferible reiniciar que intentar corregir.</li>
+  <li>Se establece la prioridad absoluta del flujo sencillo para el cliente.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 17:20 — Nace el concepto RESET TOTAL</h2>
+<ul>
+  <li>Se introduce formalmente el concepto de <strong>RESET TOTAL</strong>.</li>
+  <li>Se descarta completamente editar solo nombre, fecha, hora o servicio.</li>
+  <li>Principio rector definido:</li>
+  <li><strong>“Cuando el cliente dice NO, no se corrige: se reinicia todo.”</strong></li>
+</ul>
+
+<hr>
+
+<h2>⏰ 17:40 — Eliminación de plantillas de confirmación</h2>
+<ul>
+  <li>Se eliminan del diseño las plantillas:</li>
+  <ul>
+    <li>confirmDATE</li>
+    <li>confirmFINAL</li>
+  </ul>
+  <li>Motivo: SellerChat no conserva variables de forma segura.</li>
+  <li>Se evita por completo cualquier dependencia de estado previo.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 18:00 — Definición oficial de resets</h2>
+<ul>
+  <li>Se definen únicamente DOS resets oficiales:</li>
+  <ul>
+    <li><strong>resetDATE</strong></li>
+    <li><strong>resetFINAL</strong></li>
+  </ul>
+  <li>Ambos resets deben ejecutar solo:</li>
+  <ul>
+    <li>Colocar etiqueta <strong>INICIO</strong></li>
+    <li>No llamar a Make</li>
+    <li>No hacer correcciones parciales</li>
+  </ul>
+</ul>
+
+<hr>
+
+<h2>⏰ 18:20 — Redefinición total de INICIO</h2>
+<ul>
+  <li>La etiqueta INICIO se redefine como borrado lógico completo.</li>
+  <li>Debe ignorar cualquier interacción previa.</li>
+  <li>Siempre debe iniciar desde plantilla1_reservar.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 18:40 — Quiebre del modelo de memoria del chat</h2>
+<ul>
+  <li>Se detecta que conversaciones largas degradan claridad lógica.</li>
+  <li>Se confirma que no existe memoria estable entre sesiones.</li>
+  <li>Se decide crear una memoria externa permanente en HTML.</li>
+  <li>Nace el modelo: <strong>INDEX + HISTORIALES</strong>.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 19:00 — Infraestructura de documentación</h2>
+<ul>
+  <li>Se crea el repositorio público del proyecto en GitHub.</li>
+  <li>Se habilita GitHub Pages.</li>
+  <li>Primer despliegue arroja error 404.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 19:20 — Despliegue correcto del index</h2>
+<ul>
+  <li>Se corrige la estructura de <code>index.html</code>.</li>
+  <li>Se valida publicación correcta en:</li>
+  <li><code>https://maxhdez300-cell.github.io/202512/</code></li>
+</ul>
+
+<hr>
+
+<h2>⏰ 19:40 — Consolidación del modelo de documentación</h2>
+<ul>
+  <li>Se define formalmente:</li>
+  <ul>
+    <li><strong>Index:</strong> fuente única de verdad del sistema.</li>
+    <li><strong>Historiales:</strong> memoria cruda completa sin filtros.</li>
+  </ul>
+  <li>Se establece el proceso de merge manual.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 20:00 — Herramientas locales</h2>
+<ul>
+  <li>Se instala Notepad++ 64 bits en inglés.</li>
+  <li>Se valida edición directa de múltiples HTML.</li>
+  <li>Se confirma capacidad de combinar archivos para merge.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 20:20 — Primeras secciones oficiales del index</h2>
+<ul>
+  <li>Se crean oficialmente las secciones:</li>
+  <ul>
+    <li>Estado Actual del Sistema</li>
+    <li>Arquitectura del BarberBot</li>
+    <li>Reglas de Oro (como políticas, no como pruebas)</li>
+  </ul>
+  <li>Se valida visualización pública correcta.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 20:40 — Definición de HISTORIALES como memoria permanente</h2>
+<ul>
+  <li>Se redefine el término de bitácora a HISTORIAL.</li>
+  <li>Se decide que todo se registrará como memoria cruda.</li>
+  <li>El index solo recibirá conocimiento ya depurado.</li>
+</ul>
+
+<hr>
+
+<h2>⏰ 21:00 — Normalización del modelo de archivos</h2>
+<ul>
+  <li>Se define formato estándar:</li>
+  <ul>
+    <li>historial_YYYY-MM-DD_HHMM-AHORA.html</li>
+  </ul>
+  <li>Se define que el nombre del archivo indicará el rango temporal.</li>
+</ul>
+
+<hr>
+
+<h2>✅ Estado actual del bloque</h2>
+<ul>
+  <li>El sistema ya no depende del contexto del chat.</li>
+  <li>Existe una memoria externa estable.</li>
+  <li>El flujo está blindado por reset total.</li>
+  <li>El proyecto ya opera como sistema documentado.</li>
+</ul>
+
+<hr>
+
+<p><strong>Fin del historial (hasta este momento):</strong> 2025-12-08 — AHORA</p>
 
 </body>
 </html>
