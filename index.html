@@ -6,6 +6,188 @@
 </head>
 <body>
   <h1>Backup BarberBot</h1>
-  <p>Aquí irá el respaldo de la lógica del bot.</p>
+  <hr>
+
+<h2>📌 Estado Actual del Sistema</h2>
+<ul>
+  <li>El BarberBot se encuentra en fase de estabilización avanzada del flujo.</li>
+  <li>La lógica de reinicio por etiquetas es ahora el núcleo del sistema.</li>
+  <li>Make queda completamente desacoplado durante todo el flujo inicial.</li>
+  <li>El sistema prioriza estabilidad, continuidad de UX y tolerancia al error humano.</li>
+  <li>Este archivo <code>index.html</code> es la única fuente oficial de verdad del sistema.</li>
+</ul>
+
+<hr>
+
+<h2>🧠 Arquitectura del BarberBot</h2>
+<ul>
+  <li>El sistema opera exclusivamente mediante:
+    <ul>
+      <li>Disparadores</li>
+      <li>Etiquetas</li>
+      <li>Plantillas</li>
+    </ul>
+  </li>
+  <li>SellerChat no se utiliza para almacenar estado ni variables persistentes.</li>
+  <li>No se confía en la persistencia de contexto entre mensajes.</li>
+  <li>Todo el control de flujo depende únicamente de etiquetas.</li>
+  <li>No existen validaciones cruzadas entre datos.</li>
+  <li>Make solo se ejecuta después de la confirmación final.</li>
+</ul>
+
+<hr>
+
+<h2>🔐 Reglas de Oro del Sistema</h2>
+<ul>
+  <li>El cliente no debe razonar, solo avanzar.</li>
+  <li>Ante cualquier respuesta “NO” se ejecuta RESET TOTAL.</li>
+  <li>No existen correcciones parciales de datos.</li>
+  <li>Solo existen dos resets oficiales:
+    <ul>
+      <li><code>resetDATE</code></li>
+      <li><code>resetFINAL</code></li>
+    </ul>
+  </li>
+  <li>Ambos resets colocan únicamente la etiqueta <code>INICIO</code>.</li>
+  <li>La etiqueta <code>INICIO</code>:
+    <ul>
+      <li>Ignora cualquier flujo previo.</li>
+      <li>No llama a Make.</li>
+      <li>Ejecuta directamente <code>plantilla1_reservar</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<hr>
+
+<h2>🔁 Flujo Oficial de Reservas</h2>
+<ol>
+  <li>El cliente inicia conversación.</li>
+  <li>Se ejecuta <code>plantilla1_reservar</code>.</li>
+  <li>El bot solicita día y hora.</li>
+  <li>Se presenta la primera confirmación.</li>
+  <li>Si responde:
+    <ul>
+      <li><strong>NO</strong> → <code>resetDATE</code> → Regresa a <code>plantilla1_reservar</code>.</li>
+      <li><strong>SÍ</strong> → Continúa el flujo.</li>
+    </ul>
+  </li>
+  <li>El bot solicita nombre del cliente.</li>
+  <li>El bot solicita servicio.</li>
+  <li>Se presenta la confirmación final.</li>
+  <li>Si responde:
+    <ul>
+      <li><strong>NO</strong> → <code>resetFINAL</code> → Regresa a <code>plantilla1_reservar</code>.</li>
+      <li><strong>SÍ</strong> → Se envían datos a Make y se agenda la cita.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h2>⚙️ Disparadores Activos</h2>
+<ul>
+  <li><code>INICIO</code> — Reinicio maestro absoluto.</li>
+  <li><code>resetDATE</code> — Reinicio al negar fecha/hora.</li>
+  <li><code>resetFINAL</code> — Reinicio al negar confirmación final.</li>
+</ul>
+
+<hr>
+
+<h2>📄 Plantillas Oficiales</h2>
+<ul>
+  <li><code>plantilla1_reservar</code> — Punto único y obligatorio de entrada.</li>
+</ul>
+
+<hr>
+
+<h2>🚨 Política de Errores</h2>
+<ul>
+  <li>No se permite recuperación parcial de errores.</li>
+  <li>No se reutilizan datos si hubo una negativa.</li>
+  <li>Todo error se resuelve con RESET TOTAL.</li>
+  <li>No se permite continuar un flujo corrupto.</li>
+</ul>
+
+<hr>
+
+<h2>🐞 Problemas Históricos Detectados</h2>
+<ul>
+  <li>El bot respondía incluso con Make apagado.</li>
+  <li>El historial de SellerChat afectaba severamente el flujo.</li>
+  <li>Los nombres se sobrescribían sin control.</li>
+  <li>Los cambios de servicio no siempre se reflejaban correctamente.</li>
+  <li>El borrado manual de historial alteraba el comportamiento.</li>
+</ul>
+
+<hr>
+
+<h2>🧩 Decisiones de Diseño</h2>
+<ul>
+  <li>Se eliminó la edición parcial de datos para evitar ambigüedad.</li>
+  <li>Se priorizó UX sobre validaciones rígidas.</li>
+  <li>Se estableció un único punto de entrada.</li>
+  <li>Se descartó completamente el uso de variables persistentes.</li>
+  <li>Se decidió que cualquier “NO” reinicia todo el sistema.</li>
+</ul>
+
+<hr>
+
+<h2>🎯 Filosofía UX del BarberBot</h2>
+<ul>
+  <li>El cliente nunca debe quedar en un estado de incertidumbre.</li>
+  <li>El bot siempre debe indicar claramente el siguiente paso.</li>
+  <li>El cliente puede equivocarse sin romper el sistema.</li>
+  <li>La prioridad absoluta es que el cliente termine agendando.</li>
+  <li>El sistema debe guiar, no exigir razonamiento.</li>
+</ul>
+
+<hr>
+
+<h2>🧪 Casos Reales Probados</h2>
+<ul>
+  <li>Cliente cambia nombre después de haberlo dado → se respeta el último.</li>
+  <li>Cliente niega la confirmación final → reset total correcto.</li>
+  <li>Cliente borra historial → el flujo se recompone desde INICIO.</li>
+  <li>Cliente cambia servicio antes de confirmar → se toma el último.</li>
+</ul>
+
+<hr>
+
+<h2>🛠 Pendientes Técnicos</h2>
+<ul>
+  <li>Estabilizar completamente el reset automático por etiqueta.</li>
+  <li>Aislar totalmente Make del flujo inicial.</li>
+  <li>Documentar todos los disparadores existentes.</li>
+  <li>Automatizar respaldos periódicos del index.</li>
+</ul>
+
+<hr>
+
+<h2>🏗 Arquitectura por Capas</h2>
+<ul>
+  <li><strong>Capa UX:</strong> Conversación con el cliente.</li>
+  <li><strong>Capa Lógica:</strong> Disparadores, etiquetas y resets.</li>
+  <li><strong>Capa de Integración:</strong> Make y Google Calendar.</li>
+  <li><strong>Capa de Respaldo:</strong> GitHub Pages.</li>
+</ul>
+
+<hr>
+
+<h2>🗺 Diagrama Lógico del Sistema</h2>
+<ul>
+  <li>Cliente → <code>plantilla1_reservar</code></li>
+  <li>Solicitud día/hora → Confirmación 1</li>
+  <li>NO → <code>resetDATE</code> → <code>plantilla1_reservar</code></li>
+  <li>SÍ → Nombre → Servicio → Confirmación Final</li>
+  <li>NO → <code>resetFINAL</code> → <code>plantilla1_reservar</code></li>
+  <li>SÍ → Make → Google Calendar → Cita agendada</li>
+</ul>
+
+<hr>
+
+<h2>🌐 Enlace Maestro del Respaldo</h2>
+<code>https://maxhdez300-cell.github.io/202512/</code>
+
 </body>
 </html>
